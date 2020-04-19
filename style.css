@@ -1,0 +1,27 @@
+body {
+  background-image: url('https://www.incimages.com/uploaded_files/image/970x450/getty_525032572_383207.jpg');
+  background-size: cover
+  
+} 
+
+.container {
+  text-align: center;
+  background-color: #f3f3f3;
+  background-repeat: no-repeat;
+  border-radius: 1em;
+  padding: 1em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.hide {
+  display: none;
+}
+.choice{
+  display: block;
+  margin: auto;
+  margin-bottom: 1rem;
+}
