@@ -33,12 +33,12 @@ var questions = [{
   answer: "IF/else"
 },
 ]
-//Timer 
+//Timer parameters, counting down from 60
 var Q = 0;
 var correct = [];
 var time = 60;
 var timerId;
-
+//
 function clockTick() {
 
   time--;
@@ -49,10 +49,10 @@ function clockTick() {
     endQuizEl.textContent = "time out"
   }
 }
-
+//Timer counting down starts per 1000ms=1second, tied into the click of the start button
 timerId = setInterval(clockTick, 1000);
 startBtn.addEventListener("click", startGame);
-scoreBtn.addEventListener("click", function(){
+scoreBtn.addEventListener("click", function () {
 
 
 });
@@ -65,7 +65,7 @@ function startGame() {
   quizScreenEl.removeAttribute("class");
   buildQuestionCard();
 }
-
+// Switches from start screen to questions
 function buildQuestionCard() {
   var currentQuestion = questions[Q];
   var questionTitle = document.getElementById("question-title");
@@ -84,10 +84,10 @@ function buildQuestionCard() {
   })
 
 }
-
+// This function dictates what to do if the user answers the question correctly or incorrectly 
 function questionClick() {
   if (this.value !== questions[Q].answer) {
-    
+
     console.log("wrong")
   } else {
     correct.push(questions[Q]);
@@ -96,21 +96,22 @@ function questionClick() {
   Q++;
   console.log(questions.length)
   if (Q === questions.length) {
-    
+
     endQuiz();
   } else {
     buildQuestionCard();
   }
 }
+//This function will clear out the time and display a game over message as the last question is answered
 function endQuiz() {
-  
+
   console.log("game over")
   clearInterval(timerId);
   endQuizEl.removeAttribute("class")
   quizScreenEl.setAttribute("class", "hide");
   scoreEl.textContent = correct.length;
 }
-
+//This function is supposed to allow the scores and name saved into local storage and to be put into a scoreboard
 function saveScore() {
   var score = correct.length
   var name = document.getElementById('name').value;
@@ -118,6 +119,6 @@ function saveScore() {
   localStorage.setItem({
     "name": name,
     "score": score,
-});
+  });
   console.log(localStorage)
 }
