@@ -6,6 +6,7 @@ body {
 
 .container {
   text-align: center;
+  width: 30%;;
   background-color: #f3f3f3;
   background-repeat: no-repeat;
   border-radius: 1em;

@@ -1,8 +1,12 @@
 var startScreenEl = document.getElementById("start-screen");
 var startBtn = document.getElementById("start-button");
 var quizScreenEl = document.getElementById("quiz-screen");
-var choicesEl = document.getElementById("choices")
-var timerEl = document.getElementById("timer")
+var choicesEl = document.getElementById("choices");
+var timerEl = document.getElementById("timer");
+var endQuizEl = document.getElementById("end-screen");
+var scoreEl = document.getElementById("scoring-container");
+var scoreBtn = document.getElementById("score-submit")
+
 
 //5 questions and choices
 var questions = [{
@@ -39,10 +43,21 @@ function clockTick() {
 
   time--;
   timerEl.textContent = time;
+
+  if (time <= 0) {
+    endQuiz();
+    endQuizEl.textContent = "time out"
+  }
 }
 
 timerId = setInterval(clockTick, 1000);
 startBtn.addEventListener("click", startGame);
+scoreBtn.addEventListener("click", function(){
+
+
+});
+
+
 
 // Starts game, switches from start screen to questions
 function startGame() {
@@ -72,28 +87,37 @@ function buildQuestionCard() {
 
 function questionClick() {
   if (this.value !== questions[Q].answer) {
-    //penalize timer
-    //show word wrong on screen (for a few seconds)
+    
     console.log("wrong")
   } else {
     correct.push(questions[Q]);
     console.log("correct");
   }
   Q++;
+  console.log(questions.length)
   if (Q === questions.length) {
-    //end quiz
+    
     endQuiz();
   } else {
     buildQuestionCard();
   }
-  buildQuestionCard();
-
 }
 function endQuiz() {
+  
   console.log("game over")
-  // setAttribute to hide quiz screen and show end screen
-  endQuizEl.setAttribute("class", "hide")
-  quizScreenEl.removeAttribute("class");
-  buildQuestionCard();
+  clearInterval(timerId);
+  endQuizEl.removeAttribute("class")
+  quizScreenEl.setAttribute("class", "hide");
+  scoreEl.textContent = correct.length;
 }
 
+function saveScore() {
+  var score = correct.length
+  var name = document.getElementById('name').value;
+  console.log(name);
+  localStorage.setItem({
+    "name": name,
+    "score": score,
+});
+  console.log(localStorage)
+}
